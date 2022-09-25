@@ -27,5 +27,10 @@ streamlit.dataframe(fruits_to_show)
 streamlit.header("Fruityvice Fruit Advice!")
 
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-streamlit.text(fruityvice_response.json())
 
+#--streamlit.text(fruityvice_response.json())
+
+#--Puts the data into a format that it can be used as a dataframe
+fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+#--Displays the dataframe
+streamlit.dataframe(fruityvice_normalized)
