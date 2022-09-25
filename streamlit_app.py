@@ -9,6 +9,10 @@ def get_fruityvice_data(this_fruit_choice):
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
   return fruityvice_normalized
   
+def get_fruit_load_list():
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("select * from fruit_load_list")
+    return my_cur.fetchall()
 
 
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
@@ -46,15 +50,13 @@ except URLError as e:
   streamlit.error()
 
 
-#--Challenge lab
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-
-streamlit.header("The fruit load list contains:")
-
-my_cur.execute("select * from PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST order by 1 asc")
-my_data_row = my_cur.fetchall()
-streamlit.dataframe(my_data_row)
+#----
+streamlit.header("The fruit load list contains:")  
+  
+if streamlit.button("Fet Fruit Load List'):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  my_data_row = get_fruit_load_list()
+  streamlit.dataframe(my_data_row)
 
 fruit_choice = streamlit.text_input('What fruit would you like to add?')
 if fruit_choice:
