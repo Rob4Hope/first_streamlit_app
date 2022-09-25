@@ -13,6 +13,11 @@ def get_fruit_load_list():
   with my_cnx.cursor() as my_cur:
     my_cur.execute("select * from fruit_load_list")
     return my_cur.fetchall()
+  
+def insert_row_snowflake(new_fruit):
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute(insert into fruit_load_list values ('" + new_fruit + "')")
+                   return "Thanks for adding " + new_fruit
 
 
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
@@ -60,7 +65,8 @@ if streamlit.button("Get Fruit Load List"):
   fruit_choice = streamlit.text_input('What fruit would you like to add?')
    
   if fruit_choice:
-     my_cnx.execute("insert into fruit_load_list values ('" + fruit_choice + "')")      
+     fruit_message =  insert_row_snowflake(fruit_choice)
+     streamlit.write(fruit_message)              
 
   my_cnx.close()
   
