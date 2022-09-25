@@ -4,6 +4,9 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
+#-- Global Variable
+debug_text = ''
+
 def get_fruityvice_data(this_fruit_choice):
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
@@ -66,9 +69,11 @@ if streamlit.button("Get Fruit Load List"):
   if add_fruit_choice:
     #fruit_message =  insert_row_snowflake(fruit_choice)
     #streamlit.write(fruit_message)
-    streamlit.text_input('made it this far')
+    debug_text = 'made it this far'
 
   my_cnx.close()
+  
+streamlit.write(debug_text)
 
 
 
