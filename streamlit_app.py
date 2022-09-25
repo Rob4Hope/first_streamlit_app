@@ -70,7 +70,7 @@ if streamlit.button("Get Fruit Load List"):
   if add_fruit_choice:
     #fruit_message =  insert_row_snowflake(fruit_choice)
     #streamlit.write(fruit_message)
-    global debug_text = 'made it this far'
+    debug_text = 'made it this far'
 
   my_cnx.close()
   
