@@ -42,7 +42,6 @@ my_cur = my_cnx.cursor()
 
 streamlit.header("The fruit load list contains:")
 
-my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+my_cur.execute("select * from PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST order by 1 asc")
 my_data_row = my_cur.fetchone()
-streamlit.text("Hello from Snowflake:")
 streamlit.text(my_data_row)
